@@ -1,0 +1,10 @@
+ignite-demo.iml
+.terraform.lock.hcl
+kamlesh
+kamlesh2
+kamlesh12
+terraform.tfstate
+terraform.tfstate.backup
+.idea
+.gitignore
+.terraform
