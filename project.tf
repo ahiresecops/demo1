@@ -12,6 +12,8 @@ terraform {
 provider "aws" {
   profile = "default"
   region  = var.region
+  access_key = "AKIARTHTHLALQKX4PUBE"
+  secret_key = "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"
 
 }
 
@@ -60,7 +62,7 @@ resource "aws_subnet" "rds_subnet1" {
   availability_zone       = var.availability_zones[0]
 
   tags = {
-    Name = "CloudBhai_rds_private_subnet1"
+    Name = "Ignite_rds_private_subnet1"
   }
 }
 
@@ -216,7 +218,7 @@ resource "aws_subnet" "web_subnet2" {
   availability_zone       = var.availability_zones[1]
 
   tags = {
-    Name = "CloudBhai-public-subnet2"
+    Name = "Ignite-public-subnet2"
   }
 }
 
@@ -309,7 +311,8 @@ resource "aws_instance" "app_server" {
   instance_type                        = "t2.micro"
 #   instance_type                        = "var.instance_type"
   associate_public_ip_address          = true
-  key_name                             = "cloudbhai"
+  key_name                             = "ignite"
+ # public_key =  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmnDa2S4OPxnY11LxUvrkQr5MkYNhgI+qf+zjA5i6P5vT4le+new5I70db8UQxabf/6HQU41x0PibPErWoZ0xaiKwLBlthNeI5ZbminwP/Bsqmk5OjdiJw2SegKvgR344ifOFbUlk4bTw3BW/21iB3ZSdjmz30nflwotsLrzBVUWZtqQiIEhoUk5mwTCjXFz0nDfEkrRFTzOkmD2zyBMnsDKLKuaOwnMG77cPd+z7hUtlsHP10euAyijOptdXKT+axhpFLc9wrPyTn0R75jnzkIXwWc9Lnu+WiwKR8nGnoXUVaIBC8VgBPOP+jZ+VXStTABAY5TfkAhQtkkehob3Qv ignite2"
 #  availability_zone                    = var.availability_zone
   vpc_security_group_ids               = ["${aws_security_group.web_sg1.id}", "${aws_security_group.web_sg2.id}"]
   subnet_id                            = "${aws_subnet.web_subnet2.id}" 
@@ -408,17 +411,17 @@ resource "aws_security_group" "alb" {
   }
 
   tags =  {
-    Name = "CloudBhai-alb-security-group"
+    Name = "Ignite-alb-security-group"
   }
 }
 
 resource "aws_alb" "alb" {
-  name            = "terraform-example-alb"
+  name            = "terraform-ignite-alb"
   security_groups = ["${aws_security_group.alb.id}"]
   subnets         = ["${aws_subnet.web_subnet2.id}","${aws_subnet.web_subnet3.id}"]
 #   subnets         = aws_subnet.main.*.id
   tags = {
-    Name = "CloudBhai-example-alb"
+    Name = "Ignite-demo-alb"
   }
 }
 
